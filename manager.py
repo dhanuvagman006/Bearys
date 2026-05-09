@@ -92,12 +92,25 @@ class ProcessManager:
 
         def fetch_backup(url):
             try:
-                self.log("INFO", f"Requesting backup from {url}...")
-                response = requests.get(url, timeout=5)
-                if response.status_code == 200:
-                    return response
-            except Exception:
-                pass
+                # 1. Check integrity first
+                status_url = url.replace("/get-backup", "/check-integrity")
+                self.log("INFO", f"Checking integrity of {url}...")
+                status_res = requests.get(status_url, timeout=3)
+                
+                if status_res.status_code == 200:
+                    status_data = status_res.json()
+                    if status_data.get("status") == "clean":
+                        self.log("SUCCESS", f"Backup server at {url} is CLEAN.")
+                        # 2. Download the backup
+                        response = requests.get(url, timeout=5)
+                        if response.status_code == 200:
+                            return response
+                    else:
+                        self.log("ERROR", f"Backup server at {url} is CORRUPTED!")
+                else:
+                    self.log("ERROR", f"Could not check integrity of {url} (Status {status_res.status_code})")
+            except Exception as e:
+                self.log("ERROR", f"Request to {url} failed: {e}")
             return None
 
         try:
@@ -109,12 +122,9 @@ class ProcessManager:
                 for future in concurrent.futures.as_completed(futures):
                     response = future.result()
                     if response:
-                        # Cancel other futures (though Python's executor doesn't support true cancellation once started,
-                        # we just ignore subsequent results)
-                        
                         self.log(
                             "SUCCESS",
-                            f"Fastest response received from {futures[future]}"
+                            f"Valid backup received from {futures[future]}"
                         )
 
                         os.makedirs(
@@ -122,23 +132,12 @@ class ProcessManager:
                             exist_ok=True
                         )
 
-                        # Save the zip temporarily
-                        temp_zip_fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
-                        os.close(temp_zip_fd)
-                        
-                        with open(temp_zip_path, "wb") as f:
+                        with open(SERVER_FILE, "wb") as f:
                             f.write(response.content)
-
-                        # Unpack the archive into the backend directory
-                        backend_dir = os.path.dirname(SERVER_FILE)
-                        shutil.unpack_archive(temp_zip_path, backend_dir)
-                        
-                        # Clean up temporary zip
-                        os.remove(temp_zip_path)
 
                         self.log(
                             "SUCCESS",
-                            "Recovered server.py and templates successfully!"
+                            "Recovered server.py successfully!"
                         )
 
                         return True
