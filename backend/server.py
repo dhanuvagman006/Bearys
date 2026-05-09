@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return {"status": "alive"}
+    return {"status": "alive loaded from backup server"}
 
 @app.route("/crash")
 def crash():

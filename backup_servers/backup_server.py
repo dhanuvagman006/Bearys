@@ -12,7 +12,7 @@ def health():
 
 @app.route("/get-server")
 def get_server():
-
+    print(BACKUP_FILE)
     if not os.path.exists(BACKUP_FILE):
         return jsonify({
             "error": "Backup file missing"
