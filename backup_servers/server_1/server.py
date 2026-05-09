@@ -7,7 +7,7 @@ import sys
 app = Flask(__name__)
 
 SERVER_STATUS = "Loaded from Backup Server1"
-iwebv LHBORebvlhrb virvbrej
+
 
 # =====================================================
 # HOME PAGE
