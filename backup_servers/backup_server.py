@@ -3,7 +3,8 @@ import os
 
 app = Flask(__name__)
 
-BACKUP_FOLDER = "backup"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKUP_FILE = os.path.join(BASE_DIR, "server.py")
 
 @app.route("/health")
 def health():
@@ -12,15 +13,13 @@ def health():
 @app.route("/get-server")
 def get_server():
 
-    file_path = os.path.join(BACKUP_FOLDER, "server.py")
-
-    if not os.path.exists(file_path):
+    if not os.path.exists(BACKUP_FILE):
         return jsonify({
             "error": "Backup file missing"
         }), 404
 
     return send_file(
-        file_path,
+        BACKUP_FILE,
         as_attachment=True
     )
 
