@@ -1,0 +1,227 @@
+2026-05-09 20:23:44,499 | INFO | Launching backend/server.py
+2026-05-09 20:23:44,656 | INFO | [SERVER] Server booting...
+2026-05-09 20:23:44,656 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:23:44,656 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:23:44,659 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:23:44,659 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:23:44,659 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:23:44,659 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:23:44,659 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:23:47,495 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:23:47] "GET / HTTP/1.1" 200 -
+2026-05-09 20:23:59,206 | ERROR | Server crashed! exit_code=1 uptime=14.71s
+2026-05-09 20:23:59,206 | WARNING | Restarting server... (restart #1)
+2026-05-09 20:24:00,207 | INFO | Launching backend/server.py
+2026-05-09 20:24:00,379 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:00,379 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:00,379 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:00,382 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:00,382 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:00,382 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:00,382 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:00,382 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:01,283 | ERROR | Server crashed! exit_code=1 uptime=1.08s
+2026-05-09 20:24:01,283 | WARNING | Restarting server... (restart #2)
+2026-05-09 20:24:02,283 | INFO | Launching backend/server.py
+2026-05-09 20:24:02,435 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:02,435 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:02,435 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:02,437 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:02,438 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:02,438 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:02,438 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:02,438 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:03,345 | ERROR | Server crashed! exit_code=1 uptime=1.06s
+2026-05-09 20:24:03,345 | WARNING | Restarting server... (restart #3)
+2026-05-09 20:24:04,345 | INFO | Launching backend/server.py
+2026-05-09 20:24:04,495 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:04,495 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:04,496 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:04,498 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:04,498 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:04,498 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:04,498 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:04,498 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:05,408 | ERROR | Server crashed! exit_code=1 uptime=1.06s
+2026-05-09 20:24:05,409 | WARNING | Restarting server... (restart #4)
+2026-05-09 20:24:06,409 | INFO | Launching backend/server.py
+2026-05-09 20:24:06,588 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:06,588 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:06,588 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:06,591 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:06,591 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:06,591 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:06,591 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:06,591 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:07,476 | ERROR | Server crashed! exit_code=1 uptime=1.07s
+2026-05-09 20:24:07,476 | WARNING | Restarting server... (restart #5)
+2026-05-09 20:24:08,476 | INFO | Launching backend/server.py
+2026-05-09 20:24:08,634 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:08,635 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:08,635 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:08,637 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:08,637 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:08,637 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:08,637 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:08,637 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:09,550 | ERROR | Server crashed! exit_code=1 uptime=1.07s
+2026-05-09 20:24:09,550 | WARNING | Restarting server... (restart #6)
+2026-05-09 20:24:10,551 | INFO | Launching backend/server.py
+2026-05-09 20:24:10,696 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:10,696 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:10,696 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:10,698 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:10,699 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:10,699 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:10,699 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:10,699 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:11,609 | ERROR | Server crashed! exit_code=1 uptime=1.06s
+2026-05-09 20:24:11,610 | WARNING | Restarting server... (restart #7)
+2026-05-09 20:24:12,610 | INFO | Launching backend/server.py
+2026-05-09 20:24:12,777 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:12,777 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:12,777 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:12,780 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:12,780 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:12,780 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:12,780 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:12,780 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:13,224 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:13] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:26,698 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:26] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:26,844 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:26] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:26,996 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:26] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:27,171 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:27] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:33,680 | ERROR | Server crashed! exit_code=1 uptime=21.07s
+2026-05-09 20:24:33,680 | WARNING | Restarting server... (restart #8)
+2026-05-09 20:24:34,680 | INFO | Launching backend/server.py
+2026-05-09 20:24:34,834 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:34,834 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:34,834 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:34,837 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:34,837 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:34,837 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:34,837 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:34,837 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:35,773 | ERROR | Server crashed! exit_code=1 uptime=1.09s
+2026-05-09 20:24:35,773 | WARNING | Restarting server... (restart #9)
+2026-05-09 20:24:36,773 | INFO | Launching backend/server.py
+2026-05-09 20:24:36,922 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:36,922 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:36,922 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:36,925 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:36,925 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:36,925 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:36,925 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:36,925 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:37,844 | ERROR | Server crashed! exit_code=1 uptime=1.07s
+2026-05-09 20:24:37,844 | WARNING | Restarting server... (restart #10)
+2026-05-09 20:24:38,844 | INFO | Launching backend/server.py
+2026-05-09 20:24:39,008 | INFO | [SERVER] Server booting...
+2026-05-09 20:24:39,008 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:24:39,008 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:24:39,011 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:24:39,011 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:24:39,011 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:24:39,011 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:24:39,011 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:24:39,167 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:39] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:42,762 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:42] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:43,115 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:43] "GET / HTTP/1.1" 200 -
+2026-05-09 20:24:43,294 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:24:43] "GET / HTTP/1.1" 200 -
+2026-05-09 20:25:00,528 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:25:00] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:06,686 | INFO | Starting backend/server.py
+2026-05-09 20:38:06,814 | INFO | [SERVER] Server booting...
+2026-05-09 20:38:06,815 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:38:06,815 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:38:06,817 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:38:06,817 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:38:06,817 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:38:06,817 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:38:06,817 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:38:08,682 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:08] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:11,303 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:11] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:11,509 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:11] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:11,733 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:11] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:11,958 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:11] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:12,137 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:12] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:12,768 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:12] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:12,943 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:12] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:53,658 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:53] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:54,228 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:54] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:54,393 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:54] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:54,545 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:54] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:54,701 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:54] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:54,876 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:54] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:55,055 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:55] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:55,502 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:55] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:55,661 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:55] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:55,840 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:55] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:56,328 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:56] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:56,508 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:56] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:58,620 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:58] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:58,772 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:58] "GET / HTTP/1.1" 200 -
+2026-05-09 20:38:58,952 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:38:58] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:03,904 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:03] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:05,604 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:05] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:05,786 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:05] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:06,852 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:06] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:07,028 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:07] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:07,420 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:07] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:07,572 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:07] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:07,719 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:07] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:07,895 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:07] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:08,075 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:08] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:16,705 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:16] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:18,336 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:18] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:19,552 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:19] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:20,191 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:20] "GET / HTTP/1.1" 200 -
+2026-05-09 20:39:20,371 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:39:20] "GET / HTTP/1.1" 200 -
+2026-05-09 20:40:44,934 | INFO | Starting backend/server.py
+2026-05-09 20:40:45,069 | INFO | [SERVER] Server booting...
+2026-05-09 20:40:45,070 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:40:45,070 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:40:45,072 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:40:45,072 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:40:45,072 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:40:45,072 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:40:45,072 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:41:06,228 | INFO | Starting backend/server.py
+2026-05-09 20:41:06,352 | INFO | [SERVER] Server booting...
+2026-05-09 20:41:06,352 | INFO | [SERVER] * Serving Flask app 'server'
+2026-05-09 20:41:06,353 | INFO | [SERVER] * Debug mode: off
+2026-05-09 20:41:06,355 | INFO | [SERVER] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-05-09 20:41:06,355 | INFO | [SERVER] * Running on all addresses (0.0.0.0)
+2026-05-09 20:41:06,355 | INFO | [SERVER] * Running on http://127.0.0.1:5000
+2026-05-09 20:41:06,355 | INFO | [SERVER] * Running on http://172.16.0.140:5000
+2026-05-09 20:41:06,355 | INFO | [SERVER] [33mPress CTRL+C to quit[0m
+2026-05-09 20:41:16,676 | INFO | [SERVER] 127.0.0.1 - - [09/May/2026 20:41:16] "GET / HTTP/1.1" 200 -
+2026-05-09 20:41:40,917 | INFO | Starting backend/server.py
+2026-05-09 20:41:40,917 | ERROR | server.py missing!
+2026-05-09 20:41:40,917 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:18:40,247 | ERROR | server.py missing or deleted!
+2026-05-09 21:18:40,247 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:18:45,253 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:18:45,253 | ERROR | Could not recover server.py
+2026-05-09 21:18:47,253 | ERROR | server.py missing or deleted!
+2026-05-09 21:18:47,253 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:18:52,259 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:18:52,260 | ERROR | Could not recover server.py
+2026-05-09 21:18:54,260 | ERROR | server.py missing or deleted!
+2026-05-09 21:18:54,260 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:18:59,266 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:18:59,267 | ERROR | Could not recover server.py
+2026-05-09 21:19:01,267 | ERROR | server.py missing or deleted!
+2026-05-09 21:19:01,267 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:19:06,273 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:19:06,273 | ERROR | Could not recover server.py
+2026-05-09 21:19:08,274 | ERROR | server.py missing or deleted!
+2026-05-09 21:19:08,274 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:19:13,279 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:19:13,279 | ERROR | Could not recover server.py
+2026-05-09 21:19:15,280 | ERROR | server.py missing or deleted!
+2026-05-09 21:19:15,280 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:19:20,286 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:19:20,287 | ERROR | Could not recover server.py
+2026-05-09 21:19:22,287 | ERROR | server.py missing or deleted!
+2026-05-09 21:19:22,287 | WARNING | Attempting recovery from backup server...
+2026-05-09 21:19:27,292 | ERROR | Backup recovery failed: HTTPConnectionPool(host='127.0.0.1', port=8000): Read timed out. (read timeout=5)
+2026-05-09 21:19:27,292 | ERROR | Could not recover server.py
