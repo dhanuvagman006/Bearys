@@ -1,42 +1,47 @@
 # pyrefly: ignore [missing-import]
 from flask import Flask, send_file, jsonify
 import os
-import shutil
-import tempfile
+import hashlib
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKUP_FILE = os.path.join(BASE_DIR, "server.py")
-TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+HASH_FILE = os.path.join(BASE_DIR, "stored_hash.txt")
+
+def get_current_hash():
+    if not os.path.exists(BACKUP_FILE):
+        return None
+    sha256 = hashlib.sha256()
+    with open(BACKUP_FILE, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            sha256.update(chunk)
+    return sha256.hexdigest()
 
 @app.route("/health")
 def health():
     return {"status": "backup server 2 alive"}
 
+@app.route("/check-integrity")
+def check_integrity():
+    if not os.path.exists(HASH_FILE):
+        return jsonify({"status": "error", "message": "Stored hash missing"}), 500
+    
+    with open(HASH_FILE, "r") as f:
+        stored_hash = f.read().strip()
+    
+    current_hash = get_current_hash()
+    if current_hash == stored_hash:
+        return jsonify({"status": "clean", "hash": current_hash})
+    else:
+        return jsonify({"status": "corrupted", "expected": stored_hash, "got": current_hash})
+
 @app.route("/get-backup")
 def get_backup():
-    print("Serving backup zip from server 2...")
-    if not os.path.exists(BACKUP_FILE) or not os.path.exists(TEMPLATES_DIR):
-        return jsonify({
-            "error": "Backup files missing"
-        }), 404
-
-    temp_dir = tempfile.mkdtemp()
+    if not os.path.exists(BACKUP_FILE):
+        return jsonify({"error": "Backup file missing"}), 404
     
-    # Copy files to temp dir
-    shutil.copy(BACKUP_FILE, temp_dir)
-    shutil.copytree(TEMPLATES_DIR, os.path.join(temp_dir, "templates"))
-    
-    # Create zip
-    zip_base_name = tempfile.mktemp()
-    zip_path = shutil.make_archive(zip_base_name, 'zip', temp_dir)
-    
-    return send_file(
-        zip_path,
-        as_attachment=True,
-        download_name="backup.zip"
-    )
+    return send_file(BACKUP_FILE, as_attachment=True, download_name="server.py")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8001)
