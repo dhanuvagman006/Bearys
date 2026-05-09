@@ -46,6 +46,7 @@ class ProcessManager:
         self.restart_count = 0
         self.log_queue = queue.Queue()
         self.log_thread = None
+        self.last_mtime = None
 
     # =====================================================
     # LOGGER
@@ -227,8 +228,16 @@ class ProcessManager:
         while True:
 
             # -------------------------------------------------
-            # FILE CHECK
+            # FILE CHECK & HOT RELOAD
             # -------------------------------------------------
+
+            if os.path.exists(SERVER_FILE):
+                current_mtime = os.path.getmtime(SERVER_FILE)
+                if self.last_mtime is not None and current_mtime > self.last_mtime:
+                    self.log("WARNING", "server.py changed! Reloading...")
+                    self.kill_process()
+                    self.process = None # Force restart
+                self.last_mtime = current_mtime
 
             if not os.path.exists(SERVER_FILE) or not os.path.exists(TEMPLATES_DIR):
 
@@ -268,6 +277,11 @@ class ProcessManager:
                         f"(exit code "
                         f"{self.process.returncode})"
                     )
+
+                    # If server crashed with error, pull fresh version
+                    if self.process.returncode != 0:
+                        self.log("WARNING", "Error detected! Pulling fresh backup...")
+                        self.download_backup()
 
                 try:
 
