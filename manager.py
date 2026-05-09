@@ -8,12 +8,9 @@ import shutil
 import tempfile
 import threading
 import queue
+import concurrent.futures
 
 from colorama import init, Fore, Style
-
-# =========================================================
-# INIT
-# =========================================================
 
 init(autoreset=True)
 
@@ -31,7 +28,10 @@ TEMPLATES_DIR = os.path.join(
     "templates"
 )
 
-BACKUP_URL = "http://127.0.0.1:8000/get-backup"
+BACKUP_URLS = [
+    "http://127.0.0.1:8000/get-backup",
+    "http://127.0.0.1:8001/get-backup"
+]
 
 
 # =========================================================
@@ -77,48 +77,65 @@ class ProcessManager:
 
         self.log(
             "WARNING",
-            "Attempting recovery from backup server..."
+            f"Attempting recovery from {len(BACKUP_URLS)} backup servers..."
         )
 
+        def fetch_backup(url):
+            try:
+                self.log("INFO", f"Requesting backup from {url}...")
+                response = requests.get(url, timeout=5)
+                if response.status_code == 200:
+                    return response
+            except Exception:
+                pass
+            return None
+
         try:
-
-            response = requests.get(
-                BACKUP_URL,
-                timeout=5
-            )
-
-            if response.status_code == 200:
-
-                os.makedirs(
-                    os.path.dirname(SERVER_FILE),
-                    exist_ok=True
-                )
-
-                # Save the zip temporarily
-                temp_zip_fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
-                os.close(temp_zip_fd)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=len(BACKUP_URLS)) as executor:
+                # Start all requests simultaneously
+                futures = {executor.submit(fetch_backup, url): url for url in BACKUP_URLS}
                 
-                with open(temp_zip_path, "wb") as f:
-                    f.write(response.content)
+                # Wait for the first one that returns a valid response
+                for future in concurrent.futures.as_completed(futures):
+                    response = future.result()
+                    if response:
+                        # Cancel other futures (though Python's executor doesn't support true cancellation once started,
+                        # we just ignore subsequent results)
+                        
+                        self.log(
+                            "SUCCESS",
+                            f"Fastest response received from {futures[future]}"
+                        )
 
-                # Unpack the archive into the backend directory
-                backend_dir = os.path.dirname(SERVER_FILE)
-                shutil.unpack_archive(temp_zip_path, backend_dir)
-                
-                # Clean up temporary zip
-                os.remove(temp_zip_path)
+                        os.makedirs(
+                            os.path.dirname(SERVER_FILE),
+                            exist_ok=True
+                        )
 
-                self.log(
-                    "SUCCESS",
-                    "Recovered server.py and templates successfully!"
-                )
+                        # Save the zip temporarily
+                        temp_zip_fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
+                        os.close(temp_zip_fd)
+                        
+                        with open(temp_zip_path, "wb") as f:
+                            f.write(response.content)
 
-                return True
+                        # Unpack the archive into the backend directory
+                        backend_dir = os.path.dirname(SERVER_FILE)
+                        shutil.unpack_archive(temp_zip_path, backend_dir)
+                        
+                        # Clean up temporary zip
+                        os.remove(temp_zip_path)
+
+                        self.log(
+                            "SUCCESS",
+                            "Recovered server.py and templates successfully!"
+                        )
+
+                        return True
 
             self.log(
                 "ERROR",
-                f"Backup server returned "
-                f"status {response.status_code}"
+                "All backup servers failed or returned invalid responses."
             )
 
             return False
