@@ -6,7 +6,7 @@ import sys
 
 app = Flask(__name__)
 
-SERVER_STATUS = "Loaded from Main Server"
+SERVER_STATUS = "Loaded from Backup Server1"
 
 
 # =====================================================

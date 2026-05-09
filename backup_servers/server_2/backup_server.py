@@ -1,7 +1,6 @@
 # pyrefly: ignore [missing-import]
 from flask import Flask, send_file, jsonify
 import os
-
 import shutil
 import tempfile
 
@@ -13,11 +12,11 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 
 @app.route("/health")
 def health():
-    return {"status": "backup server alive"}
+    return {"status": "backup server 2 alive"}
 
 @app.route("/get-backup")
 def get_backup():
-    print("Serving backup zip...")
+    print("Serving backup zip from server 2...")
     if not os.path.exists(BACKUP_FILE) or not os.path.exists(TEMPLATES_DIR):
         return jsonify({
             "error": "Backup files missing"
@@ -40,4 +39,4 @@ def get_backup():
     )
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8001)
