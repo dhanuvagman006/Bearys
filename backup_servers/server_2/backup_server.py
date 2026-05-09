@@ -44,4 +44,4 @@ def get_backup():
     return send_file(BACKUP_FILE, as_attachment=True, download_name="server.py")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8001)
+    app.run(host="0.0.0.0", port=8001, processes=4, threaded=False)

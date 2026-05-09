@@ -41,6 +41,27 @@ BACKUP_DIRS = {
 
 
 # =========================================================
+# FETCH BACKUP TASK
+# =========================================================
+
+def fetch_backup_task(url):
+    try:
+        # 1. Check integrity first
+        status_url = url.replace("/get-backup", "/check-integrity")
+        status_res = requests.get(status_url, timeout=3)
+        
+        if status_res.status_code == 200:
+            status_data = status_res.json()
+            if status_data.get("status") == "clean":
+                # 2. Download the backup
+                response = requests.get(url, timeout=5)
+                if response.status_code == 200:
+                    return response.content, url
+    except Exception:
+        pass
+    return None, url
+
+# =========================================================
 # PROCESS MANAGER
 # =========================================================
 
@@ -90,41 +111,19 @@ class ProcessManager:
             f"Attempting recovery from {len(BACKUP_URLS)} backup servers..."
         )
 
-        def fetch_backup(url):
-            try:
-                # 1. Check integrity first
-                status_url = url.replace("/get-backup", "/check-integrity")
-                self.log("INFO", f"Checking integrity of {url}...")
-                status_res = requests.get(status_url, timeout=3)
-                
-                if status_res.status_code == 200:
-                    status_data = status_res.json()
-                    if status_data.get("status") == "clean":
-                        self.log("SUCCESS", f"Backup server at {url} is CLEAN.")
-                        # 2. Download the backup
-                        response = requests.get(url, timeout=5)
-                        if response.status_code == 200:
-                            return response
-                    else:
-                        self.log("ERROR", f"Backup server at {url} is CORRUPTED!")
-                else:
-                    self.log("ERROR", f"Could not check integrity of {url} (Status {status_res.status_code})")
-            except Exception as e:
-                self.log("ERROR", f"Request to {url} failed: {e}")
-            return None
 
         try:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=len(BACKUP_URLS)) as executor:
+            with concurrent.futures.ProcessPoolExecutor(max_workers=len(BACKUP_URLS)) as executor:
                 # Start all requests simultaneously
-                futures = {executor.submit(fetch_backup, url): url for url in BACKUP_URLS}
+                futures = {executor.submit(fetch_backup_task, url): url for url in BACKUP_URLS}
                 
                 # Wait for the first one that returns a valid response
                 for future in concurrent.futures.as_completed(futures):
-                    response = future.result()
-                    if response:
+                    content, url = future.result()
+                    if content:
                         self.log(
                             "SUCCESS",
-                            f"Valid backup received from {futures[future]}"
+                            f"Valid backup received from {url}"
                         )
 
                         os.makedirs(
@@ -133,7 +132,7 @@ class ProcessManager:
                         )
 
                         with open(SERVER_FILE, "wb") as f:
-                            f.write(response.content)
+                            f.write(content)
 
                         self.log(
                             "SUCCESS",
