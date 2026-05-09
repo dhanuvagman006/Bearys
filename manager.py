@@ -33,6 +33,12 @@ BACKUP_URLS = [
     "http://127.0.0.1:8001/get-backup"
 ]
 
+IMMUTABLE_DIR = os.path.join(BASE_DIR, "backup_server_immutable")
+BACKUP_DIRS = {
+    "server_1": os.path.join(BASE_DIR, "backup_servers", "server_1"),
+    "server_2": os.path.join(BASE_DIR, "backup_servers", "server_2")
+}
+
 
 # =========================================================
 # PROCESS MANAGER
@@ -47,6 +53,10 @@ class ProcessManager:
         self.log_queue = queue.Queue()
         self.log_thread = None
         self.last_mtime = None
+        self.backup_mtimes = {}
+        
+        # Ensure immutable directory exists
+        os.makedirs(IMMUTABLE_DIR, exist_ok=True)
 
     # =====================================================
     # LOGGER
@@ -138,13 +148,38 @@ class ProcessManager:
                 "All backup servers failed or returned invalid responses."
             )
 
+            # FALLBACK: Try to recover from the latest immutable snapshot
+            self.log("WARNING", "Attempting fallback to local immutable snapshots...")
+            try:
+                snapshots = [d for d in os.listdir(IMMUTABLE_DIR) if d.startswith("snapshot_")]
+                if snapshots:
+                    # Sort by name (which includes timestamp) and get the latest
+                    latest_snapshot = sorted(snapshots)[-1]
+                    snapshot_path = os.path.join(IMMUTABLE_DIR, latest_snapshot)
+                    
+                    self.log("INFO", f"Recovering from latest binary snapshot: {latest_snapshot}")
+                    
+                    # Unpack the binary snapshot archive into the backend directory
+                    backend_dir = os.path.dirname(SERVER_FILE)
+                    shutil.unpack_archive(snapshot_path, backend_dir)
+                    
+                    self.log("SUCCESS", "Recovered successfully from binary immutable snapshot!")
+                    return True
+                else:
+                    self.log("ERROR", "No local snapshots found to recover from.")
             except Exception as e:
-                self.log(
-                    "ERROR",
-                    f"Backup recovery from {url} failed: {e}"
-                )
+                self.log("ERROR", f"Local snapshot recovery failed: {e}")
 
-        return False
+            return False
+
+        except Exception as e:
+
+            self.log(
+                "ERROR",
+                f"Backup recovery failed: {e}"
+            )
+
+            return False
 
     # =====================================================
     # KILL PROCESS
@@ -228,6 +263,23 @@ class ProcessManager:
                 f"Log streaming failed: {e}"
             )
 
+    def create_clean_snapshot(self, source_dir, snapshot_base):
+        # Create a temporary directory to build the clean snapshot
+        temp_dir = tempfile.mkdtemp()
+        
+        # Only copy server.py and templates
+        shutil.copy(os.path.join(source_dir, "server.py"), temp_dir)
+        
+        templates_src = os.path.join(source_dir, "templates")
+        if os.path.exists(templates_src):
+            shutil.copytree(templates_src, os.path.join(temp_dir, "templates"))
+            
+        # Create the zip archive
+        shutil.make_archive(snapshot_base, 'zip', temp_dir)
+        
+        # Clean up temp directory
+        shutil.rmtree(temp_dir)
+
     # =====================================================
     # MONITOR LOOP
     # =====================================================
@@ -239,7 +291,45 @@ class ProcessManager:
             "Process manager started"
         )
 
+        # Initial check: if immutable folder is empty, populate it
+        try:
+            if not any(f for f in os.listdir(IMMUTABLE_DIR) if f.startswith("snapshot_")):
+                self.log("INFO", "Immutable directory is empty. Creating initial snapshots...")
+                import datetime
+                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                for name, path in BACKUP_DIRS.items():
+                    if os.path.exists(path):
+                        snapshot_base = os.path.join(IMMUTABLE_DIR, f"snapshot_{name}_{timestamp}")
+                        self.create_clean_snapshot(path, snapshot_base)
+                        self.log("INFO", f"Initial binary snapshot for {name} saved to {snapshot_base}.zip")
+        except Exception as e:
+            self.log("ERROR", f"Failed to initialize immutable directory: {e}")
+
         while True:
+
+            # -------------------------------------------------
+            # BACKUP SERVER SNAPSHOT CHECK
+            # -------------------------------------------------
+
+            for name, path in BACKUP_DIRS.items():
+                target_file = os.path.join(path, "server.py")
+                if os.path.exists(target_file):
+                    mtime = os.path.getmtime(target_file)
+                    if name in self.backup_mtimes and mtime > self.backup_mtimes[name]:
+                        self.log("SUCCESS", f"Update detected in {name}! Creating snapshot...")
+                        
+                        import datetime
+                        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                        snapshot_base = os.path.join(IMMUTABLE_DIR, f"snapshot_{name}_{timestamp}")
+                        
+                        try:
+                            # Create a zip archive containing only server.py and templates
+                            self.create_clean_snapshot(path, snapshot_base)
+                            self.log("INFO", f"Clean binary snapshot saved to {snapshot_base}.zip")
+                        except Exception as e:
+                            self.log("ERROR", f"Failed to create binary snapshot: {e}")
+                            
+                    self.backup_mtimes[name] = mtime
 
             # -------------------------------------------------
             # FILE CHECK & HOT RELOAD
