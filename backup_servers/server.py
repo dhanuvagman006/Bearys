@@ -1,10 +1,12 @@
+# pyrefly: ignore [missing-import]
 from flask import Flask, render_template
 import os
 import random
+import sys
 
 app = Flask(__name__)
 
-SERVER_STATUS = "Loaded from Main Server"
+SERVER_STATUS = "Loaded from Backup Server"
 
 
 # =====================================================
@@ -51,7 +53,7 @@ def random_crash():
 
     if random.randint(1, 5) == 1:
 
-        os._exit(1)
+        sys.exit(1)
 
     return {
         "status": "survived"
@@ -68,5 +70,7 @@ if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
-        port=5000
+        port=5001,
+        debug=False,
+        use_reloader=False
     )

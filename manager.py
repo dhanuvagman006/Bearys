@@ -4,6 +4,10 @@ import sys
 import requests
 import os
 import platform
+import shutil
+import tempfile
+import threading
+import queue
 
 from colorama import init, Fore, Style
 
@@ -21,7 +25,13 @@ SERVER_FILE = os.path.join(
     "server.py"
 )
 
-BACKUP_URL = "http://127.0.0.1:8000/get-server"
+TEMPLATES_DIR = os.path.join(
+    BASE_DIR,
+    "backend",
+    "templates"
+)
+
+BACKUP_URL = "http://127.0.0.1:8000/get-backup"
 
 
 # =========================================================
@@ -34,6 +44,8 @@ class ProcessManager:
 
         self.process = None
         self.restart_count = 0
+        self.log_queue = queue.Queue()
+        self.log_thread = None
 
     # =====================================================
     # LOGGER
@@ -81,12 +93,23 @@ class ProcessManager:
                     exist_ok=True
                 )
 
-                with open(SERVER_FILE, "wb") as f:
+                # Save the zip temporarily
+                temp_zip_fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
+                os.close(temp_zip_fd)
+                
+                with open(temp_zip_path, "wb") as f:
                     f.write(response.content)
+
+                # Unpack the archive into the backend directory
+                backend_dir = os.path.dirname(SERVER_FILE)
+                shutil.unpack_archive(temp_zip_path, backend_dir)
+                
+                # Clean up temporary zip
+                os.remove(temp_zip_path)
 
                 self.log(
                     "SUCCESS",
-                    "Recovered server.py successfully!"
+                    "Recovered server.py and templates successfully!"
                 )
 
                 return True
@@ -146,6 +169,15 @@ class ProcessManager:
             bufsize=1
         )
 
+        # Start a background thread to read logs without blocking the monitor
+        def reader():
+            for line in iter(self.process.stdout.readline, ""):
+                self.log_queue.put(line)
+            self.process.stdout.close()
+
+        self.log_thread = threading.Thread(target=reader, daemon=True)
+        self.log_thread.start()
+
         self.log(
             "SUCCESS",
             "Server process launched successfully!"
@@ -159,13 +191,9 @@ class ProcessManager:
 
         try:
 
-            if (
-                self.process and
-                self.process.stdout and
-                self.process.stdout.readable()
-            ):
+            while not self.log_queue.empty():
 
-                line = self.process.stdout.readline()
+                line = self.log_queue.get_nowait()
 
                 if line:
 
@@ -174,6 +202,9 @@ class ProcessManager:
                         "[SERVER] " +
                         line.strip()
                     )
+
+        except queue.Empty:
+            pass
 
         except Exception as e:
 
@@ -199,11 +230,11 @@ class ProcessManager:
             # FILE CHECK
             # -------------------------------------------------
 
-            if not os.path.exists(SERVER_FILE):
+            if not os.path.exists(SERVER_FILE) or not os.path.exists(TEMPLATES_DIR):
 
                 self.log(
                     "ERROR",
-                    "server.py missing or deleted!"
+                    "server.py or templates missing or deleted!"
                 )
 
                 self.kill_process()
@@ -214,7 +245,7 @@ class ProcessManager:
 
                     self.log(
                         "ERROR",
-                        "Could not recover server.py"
+                        "Could not recover from backup"
                     )
 
                     time.sleep(2)
@@ -432,7 +463,21 @@ if __name__ == "__main__":
     if "--monitor" in sys.argv:
 
         manager = ProcessManager()
-        manager.monitor()
+        
+        import signal
+        def handle_exit(signum, frame):
+            manager.kill_process()
+            sys.exit(0)
+            
+        signal.signal(signal.SIGTERM, handle_exit)
+        signal.signal(signal.SIGINT, handle_exit)
+        
+        try:
+            manager.monitor()
+        except KeyboardInterrupt:
+            print("\nExiting monitor...")
+        finally:
+            manager.kill_process()
 
     else:
 
