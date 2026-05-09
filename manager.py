@@ -31,7 +31,11 @@ TEMPLATES_DIR = os.path.join(
     "templates"
 )
 
-BACKUP_URL = "http://127.0.0.1:8000/get-backup"
+BACKUP_URLS = [
+    "http://127.0.0.1:8000/get-backup",
+    "http://127.0.0.1:8001/get-backup",
+    "http://127.0.0.1:8002/get-backup"  # Immutable Server
+]
 
 
 # =========================================================
@@ -80,57 +84,53 @@ class ProcessManager:
             "Attempting recovery from backup server..."
         )
 
-        try:
-
-            response = requests.get(
-                BACKUP_URL,
-                timeout=5
-            )
-
-            if response.status_code == 200:
-
-                os.makedirs(
-                    os.path.dirname(SERVER_FILE),
-                    exist_ok=True
+        for url in BACKUP_URLS:
+            try:
+                response = requests.get(
+                    url,
+                    timeout=5
                 )
 
-                # Save the zip temporarily
-                temp_zip_fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
-                os.close(temp_zip_fd)
-                
-                with open(temp_zip_path, "wb") as f:
-                    f.write(response.content)
+                if response.status_code == 200:
+                    os.makedirs(
+                        os.path.dirname(SERVER_FILE),
+                        exist_ok=True
+                    )
 
-                # Unpack the archive into the backend directory
-                backend_dir = os.path.dirname(SERVER_FILE)
-                shutil.unpack_archive(temp_zip_path, backend_dir)
-                
-                # Clean up temporary zip
-                os.remove(temp_zip_path)
+                    # Save the zip temporarily
+                    temp_zip_fd, temp_zip_path = tempfile.mkstemp(suffix=".zip")
+                    os.close(temp_zip_fd)
+                    
+                    with open(temp_zip_path, "wb") as f:
+                        f.write(response.content)
+
+                    # Unpack the archive into the backend directory
+                    backend_dir = os.path.dirname(SERVER_FILE)
+                    shutil.unpack_archive(temp_zip_path, backend_dir)
+                    
+                    # Clean up temporary zip
+                    os.remove(temp_zip_path)
+
+                    self.log(
+                        "SUCCESS",
+                        f"Recovered from {url} successfully!"
+                    )
+
+                    return True
 
                 self.log(
-                    "SUCCESS",
-                    "Recovered server.py and templates successfully!"
+                    "ERROR",
+                    f"Backup server {url} returned "
+                    f"status {response.status_code}"
                 )
 
-                return True
+            except Exception as e:
+                self.log(
+                    "ERROR",
+                    f"Backup recovery from {url} failed: {e}"
+                )
 
-            self.log(
-                "ERROR",
-                f"Backup server returned "
-                f"status {response.status_code}"
-            )
-
-            return False
-
-        except Exception as e:
-
-            self.log(
-                "ERROR",
-                f"Backup recovery failed: {e}"
-            )
-
-            return False
+        return False
 
     # =====================================================
     # KILL PROCESS
